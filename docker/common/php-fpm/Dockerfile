@@ -1,7 +1,7 @@
 # Stage 1: Build environment and Composer dependencies
 FROM php:8.5-fpm AS builder
 
-# Install system dependencies and PHP extensions required for Laravel + MySQL/PostgreSQL support
+# Install system dependencies and PHP extensions required for Laravel + MySQL/mysqlQL support
 # Some dependencies are required for PHP extensions only in the build stage
 # We don't need to install Node.js or build assets, as it was done in the Nginx image
 RUN apt-get update && apt-get install -y --no-install-recommends \
