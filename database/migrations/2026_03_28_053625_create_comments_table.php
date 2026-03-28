@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('api_given_id')->unique();
-            $table->foreignId('post_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('postId');
             $table->string('name');
             $table->string('email');
             $table->text('body');
             $table->timestamps();
+
+            $table->foreign('postId')
+                ->references('id')
+                ->on('posts')
+                ->onDelete('cascade');
         });
     }
 

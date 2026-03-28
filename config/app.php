@@ -123,4 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'jsonplaceholder' => [
+        'endpoint'=> env('JSON_PLACEHOLDER_ENDPOINT','https://jsonplaceholder.typicode.com')
+    ],
+
 ];

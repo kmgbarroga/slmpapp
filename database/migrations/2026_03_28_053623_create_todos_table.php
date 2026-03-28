@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('todos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('api_given_id')->unique();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('userId');
             $table->string('title');
             $table->boolean('completed')->default(false);
             $table->timestamps();
+
+            $table->foreign('userId')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

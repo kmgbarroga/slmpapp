@@ -17,7 +17,7 @@ class ImportDataService
 
     public function __construct()
     {
-        $this->apiUrl = config('jsonplaceholder.endpoint');
+        $this->apiUrl = config('app.jsonplaceholder.endpoint');
         $this->modelMapArray = [
             'post' => \App\Models\Post::class,
             'comment' => \App\Models\Comment::class,
@@ -27,12 +27,12 @@ class ImportDataService
             'album' => \App\Models\Album::class,
         ];
         $this->resourceIdentifierArray = [
+            'user',
             'post',
             'comment',
+            'album',
             'photo',
             'todo',
-            'user',
-            'album',
         ];
     }
 
@@ -40,7 +40,7 @@ class ImportDataService
         /**
          * configure endpoint based on resource
          */
-        $urlEndPoint = $this->apiUrl . "/" . $resourceIdentifier;
+        $urlEndPoint = $this->apiUrl . "/" . $resourceIdentifier."s";
 
         $response = Http::get($urlEndPoint);
 
@@ -55,10 +55,10 @@ class ImportDataService
          * setup model based from
          * identifier
          */
-        $model = $this->modelMapArray[$resourceIdentifier];
+        $model = $this->modelMapArray[$resourceIdentifier] ?? null;
         foreach($data as $currentData){
-            DB::transaction(function () {
-                $model::createOrUpdate(
+            DB::transaction(function () use ($model,$currentData){
+                $model::updateOrCreate(
                     [
                         'id'=>$currentData['id']
                     ],
@@ -70,9 +70,9 @@ class ImportDataService
     }
 
     public function initialize(){
-        foreach ($this->resourceIdentifierArray as $resource) {
-            $dataFetched = $this->fetchFromSource($resource);
-            $this->importResourceToDb($dataFetched);
+        foreach ($this->resourceIdentifierArray as $resourceIdentifier) {
+            $dataFetched = $this->fetchFromSource($resourceIdentifier);
+            $this->importResourceToDb($resourceIdentifier,$dataFetched);
         }
     }
 
