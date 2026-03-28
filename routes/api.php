@@ -24,17 +24,8 @@ use Illuminate\Support\Facades\Route;
 // Public routes
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::apiResources([
-    'user' => UserController::class,
-    'album' => AlbumController::class,
-    'comment' => CommentController::class,
-    'photo' => PhotoController::class,
-    'post' => PostController::class,
-    'todo' => TodoController::class,
-]);
-
 // Protected routes (requires authentication)
-/*
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResources([
         'user' => UserController::class,
@@ -45,16 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
         'todo' => TodoController::class,
     ]);
 
-    // Optional: get authenticated user info
-    Route::get('/user-info', function (Request $request) {
-        return $request->user();
-    });
 
     // Logout route
     Route::post('/logout', [AuthController::class, 'logout']);
 });
-*/
-
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
