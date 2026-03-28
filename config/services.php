@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'jsonplaceholder' => [
+        'endpoint'=> env('JSON_PLACEHOLDER_ENDPOINT','https://jsonplaceholder.typicode.com')
+    ],
+
 ];
