@@ -13,6 +13,7 @@ class AlbumController extends Controller
     public function index()
     {
         //
+        return Album::all();
     }
 
     /**
@@ -28,7 +29,7 @@ class AlbumController extends Controller
      */
     public function show(Album $album)
     {
-        //
+        return response()->json($album, 200);
     }
 
     /**

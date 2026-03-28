@@ -13,6 +13,7 @@ class PhotoController extends Controller
     public function index()
     {
         //
+        return Photo::all();
     }
 
     /**
@@ -28,7 +29,7 @@ class PhotoController extends Controller
      */
     public function show(Photo $photo)
     {
-        //
+        return response()->json($photo, 200);
     }
 
     /**
